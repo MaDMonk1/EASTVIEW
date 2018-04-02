@@ -33,7 +33,7 @@ async def on_member_join(member):
   role = discord.utils.get(member.server.roles, name="Regular")
   await client.add_roles(member, role)
   emb = (discord.Embed(description=None, colour=0x3DF270))
-  welcome = client.get_channel("417043672144543765")
+  welcome = client.get_channel("430163464867151882")
   emb.add_field(name="New Member", value="Welcome to EastView, <@%s>! Have a great time with your RP. Before going anywhere, feel free to check out the useful links text channel! If you need staff, feel free to use @Staff and staff will be with you as soon as possible! Also say '?cmds' to get started! " % (member.id), inline=False)
   await client.send_message(welcome, embed=emb)
 
@@ -148,7 +148,7 @@ async def on_message(message):
          announcechannel = client.get_channel("430163492998217728")
          emb = (discord.Embed(description=None, colour=0xFFA500))
          emb.add_field(name="Announcement by %s" % (message.author), value="%s" % (" ".join(args[1:])), inline=False)
-         await client.send_message(announcechannel, "<@&427167017917743114>")
+         await client.send_message(announcechannel, "<@&430220800306446348>")
          await client.send_message(announcechannel, embed=emb)
       else:
          await client.send_message(message.channel, "<@%s> :x: You are not an admin and cannot run that command!" % (message.author.id))
