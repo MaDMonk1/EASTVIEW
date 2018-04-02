@@ -34,7 +34,7 @@ async def on_member_join(member):
   await client.add_roles(member, role)
   emb = (discord.Embed(description=None, colour=0x3DF270))
   welcome = client.get_channel("430163464867151882")
-  emb.add_field(name="New Member", value="Welcome to EastView, <@%s>! Have a great time with your RP. Before going anywhere, feel free to check out the useful links text channel! If you need staff, feel free to use @Staff and staff will be with you as soon as possible! Also say '?cmds' to get started! " % (member.id), inline=False)
+  emb.add_field(name="New Member", value="Welcome to EastView, <@%s>! Have a great time here at EastView! Before going anywhere, feel free to check out the info text channel! If you need staff, feel free to use @Staff and staff will be with you as soon as possible! Also say '?cmds' to get started! " % (member.id), inline=False)
   await client.send_message(welcome, embed=emb)
 
 @client.event
