@@ -85,63 +85,6 @@ async def on_message(message):
        emb.add_field(name="Version", value="I am in Alpha stages. I am still being made and some features might not work.", inline=False)
        await client.send_message(message.channel, embed=emb)
        print("%s ran the ?version command!" % (message.author.id))
-    if message.content.upper().startswith('?INVITE') or message.content.upper().startswith('*INVITE') or message.content.upper().startswith('-INVITE') or message.content.upper().startswith('>INVITE'):
-       perms = True
-       for item in invBlacklist:
-         if item == message.author.id:
-           perms = False
-       if perms == True:
-          invite = await client.create_invite(destination = message.channel, xkcd = True, max_uses = 1)
-          await client.send_message(message.channel, ":white_check_mark: Invite your friend with this invite! Note that it can ONLY be used once. Here's the invite: %s" % (invite))
-       elif perms == False:
-          await client.send_message(message.channel, "<@%s> :x: You have been blacklisted from creating invites. If this is a mistake, please mention/message a Bot Administrator" % (message.author.id))
-    if message.content.upper().startswith('?VIEWINVITE') or message.content.upper().startswith('*VIEWINVITE') or message.content.upper().startswith('-VIEWINVITE') or message.content.upper().startswith('?VIEWINVITE'):
-       if "430187539668664341" in [role.id for role in message.author.roles]:
-          args = message.content.split(" ")
-          invite12 = await client.get_invite("http://discord.gg/%s" % " ".join(args[1:]))
-          created = invite12.created_at
-          emb = (discord.Embed(description=None, colour=0x3DF270))
-          emb.add_field(name="Viewing invite information for %s" % (" ".join(args[1:])), value="%s" % (" ".join(args[1:])), inline=False)
-          emb.add_field(name="Channel", value="#%s" % (invite12.channel), inline=False)
-          emb.add_field(name="Uses", value="%s" % (invite12.uses), inline=False)
-          await client.send_message(message.channel, embed=emb)
-       else:
-          await client.send_message(message.channel, "<@%s> :x: You are not an admin and cannot run this command!" % (message.author.id))
-    if message.content.upper().startswith('?INVBLOCK') or message.content.upper().startswith('*INVBLOCK') or message.content.upper().startswith('-INVBLOCK') or message.content.upper().startswith('>INVBLOCK'):
-       if "430187539668664341" in [role.id for role in message.author.roles]:
-          perms = True
-          for item in invBlacklist:
-            if item == message.author.id:
-               perms = False
-          if perms == False:
-             await client.send_message(message.channel, "<@%s> :x: That user is already blacklisted!" % (message.author.id))
-          elif perms == True:
-             args = message.content.split(" ")
-             mentionID = message.mentions[0].id
-             invBlacklist.append(mentionID)
-             await client.send_message(message.channel, ":white_check_mark: <@%s> %s has been blacklisted from creating invites!" % (message.author.id, mentionID))
-       else:
-          await client.send_message(message.channel, "<@%s> :x: You are not an admin and cannot run this command!" % (message.author.id))
-    if message.content.upper().startswith('?INVWHITELIST') or message.content.upper().startswith('*INVWHITELIST') or message.content.upper().startswith('-INVWHITELIST') or message.content.upper().startswith('>INVWHITELIST'):
-       if "430187539668664341" in [role.id for role in message.author.roles]:
-          perms = True
-          for item in invBlacklist:
-            if item == message.author.id:
-               perms = False
-          if perms == True:
-             await client.send_message(message.channel, "<@%s> :x: That user is not blacklisted!" % (message.author.id))
-          elif perms == False:
-             args = message.content.split(" ")
-             mentionID = message.mentions[0].id
-             invBlacklist.remove(mentionID)
-             await client.send_message(message.channel, ":white_check_mark: <@%s> %s has been whitelisted and can now create invites!" % (message.author.id, mentionID))
-       else:
-          await client.send_message(message.channel, "<@%s> :x: You are not an admin and cannot run this command!" % (message.author.id))
-    if message.content.upper().startswith('?INVBLACKLIST') or message.content.upper().startswith('*INVBLACKLIST') or message.content.upper().startswith('-INVBLACKLIST') or message.content.upper().startswith('>INVBLACKLIST'):
-       if "430187539668664341" in [role.id for role in message.author.roles]:
-         await client.send_message(message.channel, ":white_check_mark: <@%s> The following people are blacklisted from creating invites: %s" % (message.author.id, ", ".join(invBlacklist)))
-       else:
-         await client.send_message(message.channel, "<@%s> :x: You are not an admin and cannot run this command!" % (message.author.id))
     if message.content.upper().startswith('?8BALL') or message.content.upper().startswith('*8BALL') or message.content.upper().startswith('-8BALL') or message.content.upper().startswith('>8BALL'):
         userID = message.author.id
         randnum = random.randint(1,11)
@@ -165,49 +108,6 @@ async def on_message(message):
             await client.send_message(message.channel, "<@%s> :8ball: I see something positive. :8ball:" % (userID))
         if randnum == 10:
             await client.send_message(message.channel, "<@%s> :8ball: I don't see it. You may as well walk away. :8ball:" % (userID))
-    if message.content.upper().startswith('?COOKIE') or message.content.upper().startswith('*COOKIE') or message.content.upper().startswith('-COOKIE') or message.content.upper().startswith('>COOKIE'):
-       userID = message.author.id
-       mentionID = message.mentions[0].id
-       if userID == mentionID:
-         await client.send_message(message.channel, "<@%s> decided to take all the cookies! How dare they?!?!! :cookie:" % (userID))
-       elif mentionID != "419904091607662592":
-         await client.send_message(message.channel, "<@%s> gave <@%s> a cookie! How *sweet*! :cookie:" % (userID, mentionID))
-       elif mentionID == "419904091607662592":
-         await client.send_message(message.channel, "<@%s> gave me a cookie! ME? ME!? ME?!? What did I do to deserve this? :cookie:" % (userID))
-         await client.add_reaction(message, "\U0001F1F9")
-         await client.add_reaction(message, "\U0001F1ED")
-         await client.add_reaction(message, "\U0001F1FD")
-    if message.content.upper().startswith('?HUG') or message.content.upper().startswith('*HUG') or message.content.upper().startswith('-HUG') or message.content.upper().startswith('>HUG'):
-       userID = message.author.id
-       mentionID = message.mentions[0].id
-       if userID == mentionID:
-         await client.send_message(message.channel, "<@%s>, you have more friends than that! Right? Right? Right?!?! :revolving_hearts:" % (userID))
-       elif mentionID != "419904091607662592":
-         await client.send_message(message.channel, "<@%s> gave <@%s> a hug! How thoughtful?! :revolving_hearts:" % (userID, mentionID))
-       elif mentionID == "419904091607662592":
-         await client.send_message(message.channel, "<@%s>, are you being serious? I LOVE HUGS!!!!!!!!! :revolving_hearts:" % (userID))
-         await client.add_reaction(message, "\u2665")
-    if message.content.upper().startswith('?PUNCH') or message.content.upper().startswith('*PUNCH') or message.content.upper().startswith('-PUNCH') or message.content.upper().startswith('>PUNCH'):
-       userID = message.author.id
-       mentionID = message.mentions[0].id
-       if userID == mentionID:
-         await client.send_message(message.channel, "<@%s>, you have punched yourself. Niceeeeeeeeeeeeeeeeeee choice. :face_palm:" % (userID))
-       elif mentionID != "419904091607662592":
-         await client.send_message(message.channel, "<@%s> punched <@%s>! I honestly don't care but be warned that this could turn into a war. :face_palm:" % (userID, mentionID))
-       elif mentionID == "419904091607662592":
-         await client.send_message(message.channel, "<@%s>, NO NO NO NO NO NO NO NO NO. Don't do it. :face_palm:" % (userID))
-         await client.add_reaction(message, "\U0001F1F3")
-         await client.add_reaction(message, "\U0001F1F4")
-    if message.content.upper().startswith('?SLAP') or message.content.upper().startswith('*SLAP') or message.content.upper().startswith('-SLAP') or message.content.upper().startswith('>SLAP'):
-       userID = message.author.id
-       mentionID = message.mentions[0].id
-       if userID == mentionID:
-         await client.send_message(message.channel, "<@%s>, you have slapped yourself. Do you think you're dreaming or something? :cloud_lightning:" % (userID))
-       elif mentionID != "419904091607662592":
-         await client.send_message(message.channel, "<@%s> punched <@%s>! Better knock some sense into him/her! :cloud_lightning:" % (userID, mentionID))
-       elif mentionID == "419904091607662592":
-         await client.send_message(message.channel, "<@%s>, what did I do to deserve this?? I am just programmed to do stuff OKAY?!?! :cloud_lightning:" % (userID))
-         await client.add_reaction(message, "\U0001F620")
     if message.content.upper().startswith('?KICK'):
           if "430187539668664341" in [role.id for role in message.author.roles]:
             await client.send_message(message.channel, "<@%s> :white_check_mark: You have kicked <@%s> successfully." % (message.author.id, message.mentions[0].id))
@@ -286,5 +186,27 @@ async def on_message(message):
                                                                               await client.send_message(chan, embed=embed)
         else:
             await client.send_message(message.channel, "You Do Not Have Permission")
-            
+    if message.content.upper().startswith('?CMDS'):
+                                                  embed3 = (discord.Embed(description=None, colour=0x00ff00))
+                                                  embed3.set_author(name="Server Commands")
+                                                  embed3.add_field(name="?SET -Starts Coins", value="?PING -Plays Ping Pong", inline=True)
+                                                  embed3.add_field(name="?Register - Registers you to the bank", value="?Coins - Checks your coins", inline=True)
+                                                  embed3.add_field(name="cookie and milk -gives you cookies and milk", value="?8ball (your words) -plays 8ball", inline=True)
+                                                  embed3.add_field(name="?VERSION -tells you the bot version", value="N/A", inline=True)
+                                                  await client.send_message(message.channel, embed=embed3)
+    if message.content.upper().startswith('?ADMINCMDS'):
+        if "430187539668664341" in [role.id for role in message.author.roles]:
+                                                                             embed3 = (discord.Embed(description=None, colour=0x00ff00))
+                                                                             embed3.set_author(name="Server Admin Commands")
+                                                                             embed3.add_field(name="?KICK @user", value="?ANNE (announcement)", inline=True)
+                                                                             embed3.add_field(name="?MUTE @user/?UNMUTE @user", value="?BAN @user/?UNBAN @user", inline=True)
+                                                                             embed3.add_field(name="?WARN @(WARNED PERSON) For (your words)", value="N/A", inline=True)
+                                                                             await client.send_message(message.channel, embed=embed3)
+        else:
+            await client.send_message(message.channel, "You Do Not Have Permission")
+    if message.content == "cookies and milk":
+        await client.send_message(message.channel, "Here's your cookie :cookie: . Almost forgot your milk :milk:!")
+    if message.content.upper().startswith('?PING'):
+        userID = message.author.id
+        await client.send_message(message.channel, ":ping_pong: pong!")
 client.run("NDMwMjAyMjU2MjgyMDkxNTIw.DaMwmA.bVnzFLy1SgnNx9DeuGhhpX61QKc")
