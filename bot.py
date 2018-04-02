@@ -209,4 +209,12 @@ async def on_message(message):
     if message.content.upper().startswith('?PING'):
         userID = message.author.id
         await client.send_message(message.channel, ":ping_pong: pong!")
+    if message.content.upper().startswith('?INFORM'):
+                                                    embed = discord.Embed(name="EastView's info".format(message.server.name), description="Here's what I could find.", color=0x00ff00)
+                                                    embed.set_author(name="EastView")
+                                                    embed.add_field(name="Name", value=message.server.name, inline=True)
+                                                    embed.add_field(name="ID", value=message.server.id, inline=True)
+                                                    embed.add_field(name="Roles", value=len(message.server.roles), inline=True)
+                                                    embed.add_field(name="Members", value=len(message.server.members))
+                                                    await client.send_message(message.channel, embed=embed)
 client.run("NDMwMjAyMjU2MjgyMDkxNTIw.DaMwmA.bVnzFLy1SgnNx9DeuGhhpX61QKc")
