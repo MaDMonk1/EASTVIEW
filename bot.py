@@ -21,7 +21,7 @@ bypass_list = [" "]
 @client.event
 async def on_ready():
   print("Management || Bot is Online and ready.")
-  await client.change_presence(game=discord.Game(name="EastVeiw Management | ?help"))
+  await client.change_presence(game=discord.Game(name="EastVeiw B0i| ?help"))
 
 
 invBlacklist = []
