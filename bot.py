@@ -21,7 +21,7 @@ bypass_list = [" "]
 @client.event
 async def on_ready():
   print("Management || Bot is Online and ready.")
-  await client.change_presence(game=discord.Game(name="EastVeiw B0i| ?help"))
+  await client.change_presence(game=discord.Game(name="EastVeiw Management | ?help"))
 
 
 invBlacklist = []
@@ -34,7 +34,7 @@ async def on_member_join(member):
   await client.add_roles(member, role)
   emb = (discord.Embed(description=None, colour=0x3DF270))
   welcome = client.get_channel("430163464867151882")
-  emb.add_field(name="New Member", value="Welcome to EastView, <@%s>! Have a great time here at EastView! Before going anywhere, feel free to check out the info text channel! If you need staff, feel free to use @Staff and staff will be with you as soon as possible! Also say '?cmds' to get started! " % (member.id), inline=False)
+  emb.add_field(name="New Member", value="Welcome to EastView, <@%s>! Have a great time with your RP. Before going anywhere, feel free to check out the useful links text channel! If you need staff, feel free to use @Staff and staff will be with you as soon as possible! Also say '?cmds' to get started! " % (member.id), inline=False)
   await client.send_message(welcome, embed=emb)
 
 @client.event
@@ -209,12 +209,6 @@ async def on_message(message):
     if message.content.upper().startswith('?PING'):
         userID = message.author.id
         await client.send_message(message.channel, ":ping_pong: pong!")
-    if message.content.upper().startswith('?INFORM'):
-                                                    embed = discord.Embed(name="EastView's info".format(message.server.name), description="Here's what I could find.", color=0x00ff00)
-                                                    embed.set_author(name="EastView")
-                                                    embed.add_field(name="Name", value=message.server.name, inline=True)
-                                                    embed.add_field(name="ID", value=message.server.id, inline=True)
-                                                    embed.add_field(name="Roles", value=len(message.server.roles), inline=True)
-                                                    embed.add_field(name="Members", value=len(message.server.members))
-                                                    await client.send_message(message.channel, embed=embed)
+    if message.content.upper().startswith('?DICK'):
+        await client.send_message(message.channel, " :flag_cr:  ")
 client.run("NDMwMjAyMjU2MjgyMDkxNTIw.DaMwmA.bVnzFLy1SgnNx9DeuGhhpX61QKc")
